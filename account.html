@@ -1,0 +1,185 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">        
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css">
+	    <link rel="stylesheet" type="text/css" href="css/toastr.css">
+	    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui.css"/>
+	    <link rel="stylesheet" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui-experimental.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css"> 
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+	    <script src="js/lib/jquery-1.11.1.min.js"></script>
+	    <script src="js/lib/jquery-ui.js"></script>
+	    <script src="js/lib/jquery.dataTables.js"></script>
+	    <script src="js/lib/dataTables.bootstrap.min.js"></script>  
+	    <script src="js/lib/moment-with-locales.min.js"></script>
+	    <script src="js/lib/moment-timezone-with-data.min.js"></script>
+	    <script src="js/lib/bootstrap.min.js"></script>
+	    <script src="js/lib/toastr.js"></script>
+	    <script src="js/lib/jquery.layout-latest.js"></script>
+	    <script src="js/lib/highcharts.js"></script>
+	    <script src="js/lib/data.js"></script>
+	    <script src="js/lib/export-csv.js"></script>
+	    <script src="js/lib/exporting.js"></script>
+	    <script src="js/lib/jquery.plugin.js"></script>
+	    <script src="js/lib/jquery.daterangepicker.js"></script>
+	    <script src="js/lib/jquery.rateyo.min.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-experimental.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-datepicker.js"></script>
+	    <script src="js/src/common.js"></script>
+	    <script src="js/src/account.js"></script>
+	    
+	</head>
+
+	<style>
+		@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+		.dropdown-menu > li {
+		    display: inline-block;
+		    float:left;
+		}
+		.open > ul {
+		    display: inline-flex !important;
+		}
+
+		.Editor-container {
+	      	padding:1%;
+	      	padding-top:0%;
+	    }
+	    .Editor-editor{
+	     	height: 380px;
+	    }
+	</style>
+
+	<body>
+		<header role="banner" id="header">
+		
+		</header>
+		
+		<!-- contact modal  -->
+		<div class="modal fade" id="contactModal" aria-labelledby="contactModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="contact-modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                            	<form>
+                            		<div class="form-group">
+								    	<input type="text" class="form-control" id="contact-name" placeholder="Name">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="contact-title" placeholder="Title">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="contact-email" placeholder="E-mail">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="contact-phone" placeholder="Phone">
+								  	</div>
+								</form>  
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+			                        <select id="contact-category" class = "form-control" style="margin-bottom: 6%;">
+                            			<option value="" disabled selected>Category</option>
+                            			<option value="Decision Maker">Decision Maker</option>
+                            			<option value="Influencer">Influencer</option>
+                            			<option value="Inquirer">Inquirer</option>
+			                        </select>
+                            	</form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-contact" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<section id="content">
+            <div class="aui-sidebar">
+                <div class="aui-sidebar-wrapper" id="sidebar">
+
+                </div>
+            </div>
+
+           	<div class="aui-page-panel">
+                <div class="aui-page-panel"  style="margin-top:0%">
+				    <div class="aui-page-panel-inner">
+				        <section class="aui-page-panel-content">
+				        	<div class="row">
+					        	<div class="col-xs-10">
+	                               	<h1 id="account-panel-title">My Accounts</h1>
+				        			<p id="info"></p>
+	                            </div>
+	                            <div class="col-xs-2">
+	                            	
+	                            </div>
+	                        </div>
+				            
+				        </section>
+				    </div>
+				</div>
+            </div>
+
+            <div class="aui-page-panel main-panel">
+		        <section id="account-layout" style="height:104%">
+		        	<div class="ui-layout-west" style="overflow-x: hidden;">
+                    	<table id="account-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                	<th>Account</th>
+                                    <th>Start</th>
+                                    <th>Update</th>
+                                    <th>Win Rate</th>
+                                    <th>Records</th>
+                                    <th>Size</th>
+                                    <th>Industry</th>
+                                    <th>lastUpdate</th>
+                                </tr>
+                            </thead>     
+                        </table>
+                    </div>
+		            <div class="ui-layout-center" style="overflow-x: hidden;">
+                   		<div class="panel panel-default">
+							<h2 class="panel-body" id="company">
+							    Basic panel example
+							</h2>
+						</div>
+
+						<div id="contact-list" class="side-list-container">
+	                        
+
+                    	</div>
+
+                    	<div class="side-list-container">
+							<table id="opportunity-table" class="table display data-table" cellspacing="0" width="100%">
+                    			<thead>
+	                                <tr>
+	                                    <th>Opportunity</th>
+	                                    <th>Value</th>
+	                                    <th>Close Date</th>
+	                                </tr>
+	                            </thead>
+                    		</table>           	
+                    	</div>
+                    	</div>
+                    </div>
+                   
+		        </section>
+			</div>
+        </section>
+	</body>
+
+</html>

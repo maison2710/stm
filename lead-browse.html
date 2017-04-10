@@ -1,0 +1,573 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">        
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css">
+	    <link rel="stylesheet" type="text/css" href="css/toastr.css">
+	    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui.css"/>
+	    <link rel="stylesheet" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui-experimental.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
+      	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+      	<link href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2-bootstrap.css" rel="stylesheet" />
+	    <link rel="stylesheet" type="text/css" href="css/editor.css">  
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+	    <script src="js/lib/jquery-1.11.1.min.js"></script>
+	    <script src="js/lib/jquery-ui.js"></script>
+	    <script src="js/lib/jquery.dataTables.js"></script>
+	    <script src="js/lib/dataTables.bootstrap.min.js"></script>  
+	    <script src="js/lib/moment-with-locales.min.js"></script>
+	    <script src="js/lib/moment-timezone-with-data.min.js"></script>
+	    <script src="js/lib/bootstrap.min.js"></script>
+	    <script src="js/lib/toastr.js"></script>
+	    <script src="js/lib/jquery.layout-latest.js"></script>
+	    <script src="js/lib/highcharts.js"></script>
+	    <script src="js/lib/data.js"></script>
+	    <script src="js/lib/export-csv.js"></script>
+	    <script src="js/lib/exporting.js"></script>
+	    <script src="js/lib/jquery.plugin.js"></script>
+	    <script src="js/lib/jquery.daterangepicker.js"></script>
+	    <script src="js/lib/jquery.rateyo.min.js"></script>
+	    <script src="js/lib/editor.js"></script>
+	    <script src="js/lib/bootstrap-datetimepicker.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-experimental.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-datepicker.js"></script>
+      	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+      	<script src="js/src/common.js"></script>
+      	<script src="js/src/note.js"></script> 
+	    <script src="js/src/lead-browse.js"></script>
+	    
+	    
+	</head>
+
+	<style>
+		@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+		.ui-layout-east .dropdown-menu > li {
+		    display: inline-block;
+		    float:left;
+		}
+		.ui-layout-east .open > ul {
+		    display: inline-flex !important;
+		}
+
+		.Editor-container {
+	      	padding:1%;
+	      	padding-top:0%;
+	    }
+	    .Editor-editor{
+	     	height: 380px;
+	    }
+	</style>
+	
+	<body>
+		<header role="banner" id="header">
+			
+		</header>
+
+		<!-- convert lead modal -->
+	    <div class="modal fade" id="convertLeadModal" aria-labelledby="convertLeadModal" aria-hidden="true" style="z-index: 1070;">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h4 class="modal-title">Convert This Lead To Opportunity</h4>
+	                </div>
+	                <div class="modal-body">
+	                	<form>
+	                		<div class="row">
+	                            <div class="col-xs-6">
+	                            	<form>
+	                            		<div class="form-group">
+									    	<textarea class="form-control" rows="1" id="opportunity-name" placeholder="Opportunity Name"></textarea>
+									  	</div>
+									  	<div class="form-group">
+									    	<input id="opportunity-value" class="form-control" placeholder="Opportunity Value ($)">
+									  	</div>
+									  	<div class="form-group">
+									    	<input id="opportunity-purpose" class="form-control" placeholder="Business Purpose">
+									  	</div>
+									  	<div class="form-group">
+									    	<input id="opportunity-quantity" class="form-control" placeholder="Quantity">
+									  	</div>
+									  	<div class="form-group">
+									    	<input id="car-type" class="form-control" placeholder="Car type">
+									  	</div>
+	                            	</form>
+	                            </div>
+	                            <div class="col-xs-6">
+	                            	<form>
+	                            		<div class="form-group">
+	                            			<select id="contact-category" class = "form-control">
+				                    			<option value="" disabled selected>Save contact as</option>
+				                    			<option value="Decision Maker">Decision Maker</option>
+				                    			<option value="Influencer">Influencer</option>
+				                    			<option value="Inquirer">Inquirer</option>
+					                        </select>
+	                            		</div>
+	                            		<div class="form-group">
+									    	<div class='input-group date' id='due-picker'>
+							                    <input type='text' class="form-control" id="due-value" placeholder="Close Date"></input>
+							                    <span class="input-group-addon">
+							                        <span class="glyphicon glyphicon-calendar"></span>
+							                    </span>
+							                </div>
+									  	</div>
+	                            	</form>
+	                            </div>
+		                	</div>
+	                	</form>
+	                </div>
+	                <div class="modal-footer">
+	                <button type="button" class="btn btn-danger" data-dismiss="modal" id="convert-lead" value="qualified">Convert</button>
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+		<!-- delete lead modal -->
+	    <div class="modal fade" id="deleteLeadModal" aria-labelledby="deleteLeadModal" aria-hidden="true" style="z-index: 1070;">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h4 class="modal-title">Delete This Lead</h4>
+	                </div>
+	                <div class="modal-footer">
+	                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete-lead">Delete</button>
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+		<!-- lead modal  -->
+		<div class="modal fade" id="leadModal" aria-labelledby="leadModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="lead-modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                            	<form>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-name" placeholder="Name">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-company" placeholder="Company">
+								  	</div>
+								   	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-phone" placeholder="Phone">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-email" placeholder="E-mail">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-size" placeholder="Number Of Employees">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-title" placeholder="Title">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-address" placeholder="Address">
+								  	</div>
+								</form>  
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+                            		<select id="modal-industry" class = "form-control" style="margin-bottom: 6%;">
+                            			<option value="" disabled selected>Select Industry</option>
+			                            <option value="Transportation">Transportation</option>
+			                            <option value="Government">Government</option>
+			                            <option value="Technology">Technology</option>
+			                            <option value="Services">Services</option>
+			                            <option value="Manufacturing">Manufacturing</option>
+			                            <option value="Education">Education</option>
+			                            <option value="Finance">Finance</option>
+			                            <option value="Others">Others</option>
+			                        </select>
+			                        <select id="modal-source" class = "form-control" style="margin-bottom: 6%;">
+                            			<option value="" disabled selected>Select Source</option>
+                            			<option value="web">Web</option>
+                            			<option value="referral">Referral</option>
+                            			<option value="trade show">Trade show</option>
+			                            <option value="conference">Conference</option>
+			                            <option value="advertisement">Advertisement</option>
+			                            <option value="others">Others</option>
+			                        </select>
+			                        <select id="modal-status" class = "form-control" style="margin-bottom: 6%;">
+                            			<option value="" disabled selected>Select Status</option>
+			                            <option value="open">Open</option>
+			                            <option value="contacted">Contacted</option>
+			                            <option value="qualified">Qualified</option>
+			                            <option value="unqualified">Unqualified</option>
+			                        </select>
+			                        <h3>Rate Lead</h3>
+			                        <div class="row">
+			                            <div class="col-xs-8">
+			                            	<div id="rateYo"></div>
+			                            </div>
+			                            <div class="col-xs-4">
+			                             	<h4 id="rate-value" style="margin-top:10px"></h4>
+			                            </div>
+			                        </div>
+                            	</form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-lead">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- task modal  -->
+		<div class="modal fade" id="taskModal" aria-labelledby="taskModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="task-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                    	<div>
+						  	<!-- task tabs -->
+						  	<ul class="nav nav-tabs" role="tablist">
+						    	<li role="presentation" style="text-align: center;width:25%" class="active"><a href="#task-call" aria-controls="task-call" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>Call</a></li>
+						    	<li role="presentation" style="text-align: center;width:25%"><a href="#task-meeting" aria-controls="task-meeting" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Meeting</a></li>
+						    	<li role="presentation" style="text-align: center;width:25%"><a href="#task-mail" aria-controls="task-mail" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>Mail</a></li>
+						    	<li role="presentation" style="text-align: center;width:25%"><a href="#task-others" aria-controls="task-others" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>Others</a></li>
+						  	</ul>
+						  	<!-- Tab panes -->
+							  	<div class="tab-content">
+							    <div role="tabpanel" class="tab-pane active" id="task-call">
+									<div class="row">
+			                            <div class="col-xs-6">
+			                            	<form>
+											  	<div class="form-group">
+											  		<input type="text" class="form-control" id="call-action" value="Call">
+											  	</div>
+											  	<textarea class="form-control task-comment" rows="1" id="call-comment" placeholder="Comment"></textarea>
+											</form>  
+			                            </div>
+			                            <div class="col-xs-6">
+			                            	<form>
+						                        <select id="call-to" class = "form-control to-list" style="margin-bottom: 6%;">
+			                            			<option value="" disabled selected>To</option>
+						                        </select>
+						                        <div class='input-group date' id='call-due-picker'>
+								                    <input type='text' class="form-control" id="call-due-value" placeholder="Close Date"></input>
+								                    <span class="input-group-addon">
+								                        <span class="glyphicon glyphicon-calendar"></span>
+								                    </span>
+								                </div>
+			                            	</form>
+			                            </div>
+			                            
+			                        </div>
+			                        
+			                        <button type="button" class="btn btn-primary" value="" id="save-call" data-dismiss="modal" style="margin-top: 15px">Save</button>	
+			                        							    	
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="task-meeting">
+							    	<div class="row">
+			                            <div class="col-xs-6">
+			                            	<form>
+											  	<div class="form-group">
+											  		<input type="text" class="form-control" id="meeting-action" value="Meeting">
+											  	</div>
+											  	<textarea class="form-control task-comment" rows="1" id="meeting-comment" placeholder="Comment"></textarea>
+											</form>  
+			                            </div>
+			                            <div class="col-xs-6">
+			                            	<form>
+						                        <select id="meeting-to" class = "form-control to-list" style="margin-bottom: 6%;">
+			                            			<option value="" disabled selected>To</option>
+						                        </select>
+						                        <div class='input-group date' id='meeting-due-picker'>
+								                    <input type='text' class="form-control" id="meeting-due-value" placeholder="Close Date"></input>
+								                    <span class="input-group-addon">
+								                        <span class="glyphicon glyphicon-calendar"></span>
+								                    </span>
+								                </div>
+			                            	</form>
+			                            </div>
+			                        </div>
+								  	<button type="button" class="btn btn-primary" value="" id="save-meeting" data-dismiss="modal" style="margin-top: 15px">Save</button>	
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="task-mail">
+							    	<div class="row">
+			                            <div class="col-xs-6">
+			                            	<form>
+											  	<div class="form-group">
+											  		<input type="text" class="form-control" id="mail-action" value="Mail">
+											  	</div>
+											  	<textarea class="form-control task-comment" rows="1" id="mail-comment" placeholder="Comment"></textarea>
+											</form>  
+			                            </div>
+			                            <div class="col-xs-6">
+			                            	<form>
+						                        <select id="mail-to" class = "form-control to-list" style="margin-bottom: 6%;">
+			                            			<option value="" disabled selected>To</option>
+						                        </select>
+						                        <div class='input-group date' id='mail-due-picker'>
+								                    <input type='text' class="form-control" id="mail-due-value" placeholder="Close Date"></input>
+								                    <span class="input-group-addon">
+								                        <span class="glyphicon glyphicon-calendar"></span>
+								                    </span>
+								                </div>
+			                            	</form>
+			                            </div>
+			                        </div>
+			                        
+								  	<button type="button" class="btn btn-primary" value="" id="save-mail" data-dismiss="modal" style="margin-top: 15px">Save</button>	
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="task-others">
+							    	<div class="form-group">
+								  		<input type="text" class="form-control" id="others-action" placeholder="Subject">
+								  	</div>
+			                        <div class="form-group">
+								    	<textarea class="form-control task-comment" rows="1" id="others-comment" placeholder="Comment"></textarea>
+								  	</div>
+								  	<div class='input-group date' id='others-due-picker'>
+					                    <input type='text' class="form-control" id="others-due-value" placeholder="Close Date"></input>
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+					                </div>
+					                <button type="button" class="btn btn-primary" value="" id="save-others" data-dismiss="modal" style="margin-top: 15px">Save</button>	
+							    </div>
+						  	</div>
+						</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- delete note modal -->
+        <div class="modal fade" id="deleteNoteModal" aria-labelledby="deleteNoteModal" aria-hidden="true" style="z-index: 1070;">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h4 class="modal-title" id="delete-note-title"></h4>
+	                </div>
+	                <div class="modal-footer">
+	                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete-note">Delete</button>
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+		<section id="content">
+            <div class="aui-sidebar">
+                <div class="aui-sidebar-wrapper" id="sidebar">
+
+                </div>
+            </div>
+
+           	<div class="aui-page-panel">
+                <div class="aui-page-panel" style="margin-top:0%">
+				    <div class="aui-page-panel-inner">
+				        <section class="aui-page-panel-content">
+				        	<div class="row">
+				        		<div class="col-xs-10">
+	                               	<h2 id="lead-panel-title" style="color:#2b669a;margin-bottom: 10px"></h2>
+				        			<div class="row">
+				        				<div class="col-xs-3">
+				        					<h5 id="lead-company"></h5>
+				        				</div>
+				        				<div class="col-xs-3">
+				        					<h5 id="lead-title"></h5>
+				        				</div>
+				        				<div class="col-xs-3">
+				        					<h5 id="lead-phone"></h5>
+				        				</div>
+				        				<div class="col-xs-3">
+				        					<h5 id="lead-email"></h5>
+				        				</div>
+				        			</div>
+	                            </div>
+	                            <div class="col-xs-2">
+	                            	<div id="delete-lead"><button type="button" class="btn btn-danger button-panel" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+	                            		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	                            	</button></div>
+
+	                            	<div id="edit-lead"><button type="button" class="btn btn-warning button-panel" data-toggle="tooltip" data-placement="bottom" title="Edit">
+	                            		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	                            	</button></div>
+	                            	<!-- <div id="info-car"><button type="button" class="btn btn-info button-panel" data-toggle="tooltip" data-placement="bottom" title="Car Info">
+	                            		<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+	                            	</button></div> -->
+
+	                            </div>
+	                        </div>
+	                       
+				            
+				        </section>
+				    </div>
+				</div>
+            </div>
+
+            <div class="aui-page-panel main-panel">
+		        <section id="lead-layout" style="height:101.2%">
+		            <div class="ui-layout-center" >
+
+		            	<!-- lead pipeline -->
+		            	<div class="row">
+		            		<div class="col-xs-10" style="padding-right: 0%">
+		            			<div class="progress" style="height:33px" id="lead-progress-pipeline">
+								  	
+								</div>
+		            		</div>
+		            		<div class="col-xs-2">
+		            			<div class="dropdown">
+								  	<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								    Mark as current status
+								    	<span class="caret"></span>
+								  	</button>
+								  	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									    <li><a id="status-contacted" class="set-status" value="contacted">Contacted</a></li>
+									    <li role="separator" class="divider"></li>
+									    <li><a id="status-unqualified" class="set-status" value="unqualified">Unqualified</a></li>
+									    <li role="separator" class="divider"></li>
+									    <li><a id="status-qualified" value="qualified">Qualified</a></li>
+								  	</ul>
+								</div>
+		            		</div>
+		            	</div>
+		            	
+
+						<div id="lead-options" style="margin-top: 2%">
+							<!-- note, feed, detail -->
+							<ul class="nav nav-tabs" role="tablist" style="background-color: #F5F8FA;">
+							    <li role="presentation" class="active"><a href="#feeds" aria-controls="feeds" role="tab" data-toggle="tab">Feeds</a></li>
+							    <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Notes</a></li>
+							    <!-- <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li> -->
+							</ul>
+
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="feeds">
+									<div id="comment-section" class="options-section">
+										<div class="list-group" id="comment-list">
+											<!-- comment lít -->
+										  	
+
+										</div>
+									</div>
+								</div>
+							    <div role="tabpanel" class="tab-pane" id="notes">
+							    	<div id="notes-section" class="row">
+						    			<div class="col-xs-4" style="max-height: 600px;overflow-y: auto">
+						    				<div class="list-group" id="note-list">
+
+									    	</div>
+						    			</div>
+
+						    			<div class="col-xs-8">
+						    				<div class="row" style="padding-top:1%;padding-left:1%">
+								            	<div class="col-xs-8">
+								                 	<h2 contenteditable="true" id="note-subject"></h2>
+								              	</div>
+									            <div class="col-xs-4">
+									              	<button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Down" id="down-note" style="float:right;margin-right: 14%;">
+									              		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+									              	</button>
+									              	<button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Up" id="up-note" style="float:right;margin-right: 3%;">
+									              		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+									              	</button>
+									                <button type="button" class="btn btn-sucess btn-sm" data-toggle="tooltip" data-placement="bottom" title="Save" id="save-note" style="float:right;margin-right: 3%;">
+									                  	<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+									                </button>
+									                <div id="delete-note"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Remove" style="float:right;margin-right: 3%;">
+								                		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								                	</button></div>
+
+								                	<div id="add-note"><button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="New Note" style="float:right;margin-right: 3%;">
+								                		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								                	</button></div>
+									            </div>
+								            </div>
+
+								            <hr style="margin-top: 10px;margin-bottom: 10px;">
+
+								            <div class="row" style="padding-left:2%;padding-right:1%;">
+									            <div class="col-xs-1" style="padding: 0%">
+									                <div><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Related">
+									                  <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>Related
+									                </button></div>
+									            </div>
+									            <div class="col-xs-11">
+									                <select class="form-control" id="note-related-select" multiple="multiple" style="max-width: 100%;">
+									                  
+									                </select>
+									            </div>
+								            </div>
+								            <div id="text-editor"></div>
+						    				
+						    			</div>
+							    			
+							    	</div>
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="messages">...</div>
+							</div>
+						</div>
+						
+                    </div>
+
+                    <div class="ui-layout-east">
+
+                    	<!-- timeline -->
+                    	<div id="task-timeline-lead" class="side-list-container" style="max-height: 60%;">
+                    	<!-- <div id="task-timeline" style="max-height: 60%;overflow-y: auto;overflow-x: hidden;"> -->
+                    		<div id="next-step">
+                    			<div id="next-header">
+                    				<div class="row" style="margin-bottom: 10px;">
+							        	<div class="col-xs-8">
+			                              	<h3>Next Steps</h3>
+			                            </div>
+			                            <div class="col-xs-4"  style="padding-left: 5px">
+			                            	<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="More" id="new-task" style="float:right;margin-right: 10%;">
+							              		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							              	</button>
+			                            </div>
+			                        </div>
+                    			</div>
+
+                    			<!--  next steps -->
+                    			<div id="next-step-list">
+
+			                    </div>
+                    		</div>
+                    		<div id="past-activity">
+                    			<div id="past-header">
+                    			</div>
+                    			
+                    			<div id="past-activity-list">
+                    			</div>
+                    			
+                    		</div>
+                    	</div>
+
+                    </div>
+		        </section>
+			</div>
+
+        </section>
+	</body>
+	   
+
+
+</html>

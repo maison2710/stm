@@ -1,0 +1,195 @@
+<!-- Must be the immediate child element within <header role="banner" id="header"> from the Page pattern -->
+<nav role="navigation" class="aui-header aui-dropdown2-trigger-group" style="padding-right: 1%;">
+  <div class="aui-header-primary">
+    <h2 class="aui-header-logo" id="logo"><span class="glyphicon glyphicon-briefcase" aria-hidden="true" style="color:white;margin-left: 20%;margin-top: 20%;"></h2>
+    <h3 class="aui-header-logo" id="header-name">Easy Saler</h3>
+    <ul class="aui-nav" style="margin-left:30%">
+      <li>
+        <div class="aui-quicksearch">
+          <label class="assistive" for="quicksearchid">Search</label>
+          <input type="text" name="quicksearchname" placeholder="Quick Search" id="quicksearch" style="width: 400px;">
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="aui-header-secondary">
+    <ul class="aui-nav">
+      
+      
+      <li class="dropdown pull-right"> 
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> </a> 
+        <ul class="dropdown-menu">     
+          <li><a href="#" id="logout" onclick="logout()">Log out</a></li> 
+        </ul> 
+      </li>
+
+      <li class="dropdown pull-right"> 
+        <a value="" data-toggle="modal" data-target="#newCarModal"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </a> 
+      </li>
+
+      <li class="dropdown pull-right"> 
+        <a value="" data-toggle="modal" data-target="#mainCarModal"> <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> </a> 
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- car info modal  -->
+    <div class="modal fade" id="mainCarModal" aria-labelledby="mainCarModal" aria-hidden="true" style="z-index: 1070;">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3 class="modal-title">Your Car List</h3>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <form>
+              <div class="form-group">
+                <select class = "form-control main-dealer-car-list"></select>
+              </div>
+          </form>  
+                    </div>
+                    <div class="col-xs-2">
+                      <form>
+              <div class="form-group">
+                <input id="main-car-quantity" class="form-control" placeholder="Quantity" value="10">
+              </div>
+          </form>  
+          </div>
+          <div class="col-xs-4">
+            <h3 id="main-total-price" style="margin-top: 5px">
+              
+            </h3>
+          </div>
+        </div>
+        
+    </div>
+
+    <div class="modal-body" id="main-competitor-area" style="border-top: 1px solid #ddd;">
+      <div class="row">
+            <div class="col-xs-6">
+              <form>
+                <select id="main-competitor-brand" class = "form-control" style="margin-bottom: 6%;">
+              </select>
+              <select id="main-competitor-model" class = "form-control" style="margin-bottom: 6%;">
+              </select>
+              </form>
+            </div>
+            <div class="col-xs-6">
+              <form>
+              <select id="main-competitor-year" class = "form-control" style="margin-bottom: 6%;">
+              </select>
+              <select id="main-competitor-style" class = "form-control" style="margin-bottom: 6%;">
+              </select>
+              </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body" id="main-comparasion-area" style="border-top: 1px solid #ddd;">
+                <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#main-engine-tab" aria-controls="main-engine-tab" role="tab" data-toggle="tab">Engine</a></li>
+          <li role="presentation"><a href="#main-safty-tab" aria-controls="main-safty-tab" role="tab" data-toggle="tab">Safety</a></li>
+          <li role="presentation"><a href="#main-equipment-tab" aria-controls="main-equipment-tab" role="tab" data-toggle="tab">Equipment</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="main-engine-tab">
+            <table id="main-car-info-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+              <thead>
+                    <tr>
+                      <th>Spec</th>
+                        <th>Your's Car</th>
+                    </tr>
+                </thead>  
+            </table>
+            <table id="main-car-compare-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                      <th>Spec</th>
+                        <th>Your's Offer</th>
+                        <th>Competitor's Offer</th>
+                        <th>Comparison</th>
+                    </tr>
+                </thead>  
+            </table>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="main-safty-tab">
+            <table id="main-safety-info-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+              <thead>
+                  <tr>
+                    <th>Spec</th>
+                      <th>Your's Car</th>
+                      <th>Competitor's Offer</th>
+                  </tr>
+              </thead>  
+          </table>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="main-equipment-tab">
+            <table id="main-equipment-info-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                      <th>Spec</th>
+                        <th>Your's Car</th>
+                        <th>Competitor's Offer</th>
+                    </tr>
+                </thead>  
+            </table>
+          </div>
+      </div>
+    </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" id="main-get-info">Get Info</button>
+          <button type="button" class="btn btn-default" id="main-add-competitor">Competitor</button>
+          <button type="button" class="btn btn-info" id="main-remove-competitor">Competitor</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- new car modal -->
+<div class="modal fade" id="newCarModal" aria-labelledby="newCarModalLabel" aria-hidden="true" style="z-index: 1170;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">New Car</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <form>
+                            <select id="new-car-brand" class = "form-control" style="margin-bottom: 6%;">
+                            </select>
+                            <select id="new-car-model" class = "form-control" style="margin-bottom: 6%;">
+                            </select>
+                            <select id="new-car-year" class = "form-control" style="margin-bottom: 6%;">
+                            </select>
+                            <select id="new-car-style" class = "form-control" style="margin-bottom: 6%;">
+                            </select>
+                        </form>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="new-car-price" placeholder="Price">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="new-car-profit" placeholder="Profit">
+                            </div>
+                        </form>  
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" value="" id="submit-new-car" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

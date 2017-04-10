@@ -1,0 +1,1025 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">        
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css">
+	    <link rel="stylesheet" type="text/css" href="css/toastr.css">
+	    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui.css"/>
+	    <link rel="stylesheet" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui-experimental.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
+      	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+      	<link href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2-bootstrap.css" rel="stylesheet" />
+	    <link rel="stylesheet" type="text/css" href="css/editor.css">  
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+	    <script src="js/lib/jquery-1.11.1.min.js"></script>
+	    <script src="js/lib/jquery-ui.js"></script>
+	    <script src="js/lib/jquery.dataTables.js"></script>
+	    <script src="js/lib/dataTables.bootstrap.min.js"></script>  
+	    <script src="js/lib/moment-with-locales.min.js"></script>
+	    <script src="js/lib/moment-timezone-with-data.min.js"></script>
+	    <script src="js/lib/bootstrap.min.js"></script>
+	    <script src="js/lib/toastr.js"></script>
+	    <script src="js/lib/jquery.layout-latest.js"></script>
+	    <script src="js/lib/highcharts.js"></script>
+	    <script src="js/lib/data.js"></script>
+	    <script src="js/lib/export-csv.js"></script>
+	    <script src="js/lib/exporting.js"></script>
+	    <script src="js/lib/jquery.plugin.js"></script>
+	    <script src="js/lib/jquery.daterangepicker.js"></script>
+	    <script src="js/lib/jquery.rateyo.min.js"></script>
+	    <script src="js/lib/editor.js"></script>
+	    <script src="js/lib/bootstrap-datetimepicker.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-experimental.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-datepicker.js"></script>
+      	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+      	<script src="js/src/common.js"></script> 
+      	<script src="js/src/note.js"></script>
+	    <script src="js/src/opportunity-browse.js"></script>
+	    
+	    
+	</head>
+
+	<style>
+		@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+		.dropdown-menu > li {
+		    display: inline-block;
+		    float:left;
+		}
+		.open > ul {
+		    display: inline-flex !important;
+		}
+
+		.Editor-container {
+	      	padding:1%;
+	      	padding-top:0%;
+	    }
+	    .Editor-editor{
+	     	height: 380px;
+	    }
+	</style>
+	
+	<body>
+		<header role="banner" id="header">
+		
+		</header>
+
+		<!-- update task modal  -->
+		<div class="modal fade" id="updateTaskModal" aria-labelledby="updateTaskModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update Task</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                        	<div class="col-xs-6">
+                            	<div class="form-group">
+							    	<input type="text" class="form-control" id="update-task-subject" placeholder="Name">
+							  	</div>
+							  	<div class="form-group">
+							    	<input type="text" class="form-control" id="update-task-comment" placeholder="Value">
+							  	</div>
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+								  	<select class="form-control" id="task-transfer-to" style="margin-bottom: 6%;">
+                            			<option value="" disabled selected>Assign to</option>
+			                        </select>
+			                        <div class='input-group date' id='update-due-picker'>
+					                    <input type='text' class="form-control" id="update-due-value" placeholder="Close Date"></input>
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+					                </div>
+								</form>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="update-task" data-dismiss="modal">Update</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- transfer modal  -->
+		<div class="modal fade" id="transferModal" aria-labelledby="transferModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="tranfer-modal-title">Transfer Opportunity</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                        	<div class="col-xs-6">
+                            	<form>
+			                        <select id="modal-transfer-owner" class = "form-control" style="margin-bottom: 6%;">
+                            			
+			                        </select>
+                            	</form>
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+								  	<div class="checkbox">
+									    <label>
+									      	<input type="checkbox" id="transfer-account" checked> Transfer this Account too
+									    </label>
+									</div>
+								</form>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-opportunity-transfer" data-dismiss="modal">Transfer</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- opportunity modal  -->
+		<div class="modal fade" id="opportunityModal" aria-labelledby="opportunityModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="lead-modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                            	<form>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-name" placeholder="Name">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-value" placeholder="Value">
+								  	</div>
+								   	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-car-type" placeholder="Car type">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-quantity" placeholder="Quantity">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-purpose" placeholder="Purpose">
+								  	</div>
+								</form>  
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+                            		<!-- <div class="form-group">
+	                            		<select id="modal-account-list" class = "form-control" style="margin-bottom: 6%;">
+	                            			
+				                        </select>
+			                        </div> -->
+
+			                        <div class="form-group">
+								    	<div class='input-group date' id='due-picker'>
+						                    <input type='text' class="form-control" id="due-value" placeholder="Close Date"></input>
+						                    <span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+								  	</div>
+                            	</form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-opportunity" data-dismiss="modal">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- lose opportunity modal  -->
+		<div class="modal fade" id="loseModal" aria-labelledby="loseModal" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Lose Opportunity</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                        	<form>
+							  	<div class="form-group" style="margin:15px">
+							    	<input type="text" class="form-control" id="lose-comment" placeholder="Comment">
+							  	</div>
+							</form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="save-lose">Lose</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- proposal modal  -->
+		<div class="modal fade" id="proposalModal" aria-labelledby="proposalModal" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Proposal</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                        	<form>
+							  	<div class="form-group" style="margin:15px">
+							    	<select id="proposal-car-list" class = "form-control dealer-car-list"></select>
+							  	</div>
+							</form>
+							<!-- <form>
+							  	<div class="form-group" style="margin:15px">
+							    	<select id="price-per-unit" class = "form-control dealer-car-list"></select>
+							  	</div>
+							</form> -->
+							<form>
+							  	<h3 id="proposal-price" style="margin:15px"></h3>
+							</form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-proposal">Save Proposal</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- analysis modal  -->
+		<div class="modal fade" id="yourCarModal" aria-labelledby="yourCarModal" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Your Car List</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                        	<form>
+							  	<div class="form-group" style="margin:15px">
+							    	<select id="analysis-car-list" class = "form-control dealer-car-list"></select>
+							  	</div>
+							</form>  
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" data-dismiss="modal" id="submit-your-car">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- competitor modal  -->
+		<div class="modal fade" id="competitorModal" aria-labelledby="competitorModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Competitor Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                            	<form>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="competitor-name" placeholder="Competitor Name">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="competitor-price" placeholder="Competitor Price">
+								  	</div>
+								   	<div class="form-group">
+								    	<input type="text" class="form-control" id="competitor-note" placeholder="Comment">
+								  	</div>
+								</form>  
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+                            		<select id="competitor-brand" class = "form-control" style="margin-bottom: 6%;">
+			                        </select>
+			                        <select id="competitor-model" class = "form-control" style="margin-bottom: 6%;">
+			                        </select>
+			                        <select id="competitor-year" class = "form-control" style="margin-bottom: 6%;">
+			                        </select>
+			                        <select id="competitor-style" class = "form-control" style="margin-bottom: 6%;">
+			                        </select>
+                            	</form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-competitor" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- task modal  -->
+		<div class="modal fade" id="taskModal" aria-labelledby="taskModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="task-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                    	<div>
+						  	<!-- task tabs -->
+						  	<ul class="nav nav-tabs" role="tablist">
+						    	<li role="presentation" style="text-align: center;width:25%" class="active"><a href="#task-call" aria-controls="task-call" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>Call</a></li>
+						    	<li role="presentation" style="text-align: center;width:25%"><a href="#task-meeting" aria-controls="task-meeting" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Meeting</a></li>
+						    	<li role="presentation" style="text-align: center;width:25%"><a href="#task-mail" aria-controls="task-mail" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>Mail</a></li>
+						    	<li role="presentation" style="text-align: center;width:25%"><a href="#task-others" aria-controls="task-others" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>Others</a></li>
+						  	</ul>
+						  	<!-- Tab panes -->
+							  	<div class="tab-content">
+							    <div role="tabpanel" class="tab-pane active" id="task-call">
+									<div class="row">
+			                            <div class="col-xs-6">
+			                            	<form>
+											  	<div class="form-group">
+											  		<input type="text" class="form-control" id="call-action" value="Call">
+											  	</div>
+											  	<textarea class="form-control task-comment" rows="1" id="call-comment" placeholder="Comment"></textarea>
+											</form>  
+			                            </div>
+			                            <div class="col-xs-6">
+			                            	<form>
+						                        <select id="call-to" class = "form-control to-list" style="margin-bottom: 6%;">
+			                            			<option value="" disabled selected>To</option>
+						                        </select>
+						                        <div class='input-group date' id='call-due-picker'>
+								                    <input type='text' class="form-control" id="call-due-value" placeholder="Close Date"></input>
+								                    <span class="input-group-addon">
+								                        <span class="glyphicon glyphicon-calendar"></span>
+								                    </span>
+								                </div>
+			                            	</form>
+			                            </div>
+			                            
+			                        </div>
+			                        
+			                        <button type="button" class="btn btn-primary" value="" id="save-call" data-dismiss="modal" style="margin-top: 15px">Save</button>	
+			                        							    	
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="task-meeting">
+							    	<div class="row">
+			                            <div class="col-xs-6">
+			                            	<form>
+											  	<div class="form-group">
+											  		<input type="text" class="form-control" id="meeting-action" value="Meeting">
+											  	</div>
+											  	<textarea class="form-control task-comment" rows="1" id="meeting-comment" placeholder="Comment"></textarea>
+											</form>  
+			                            </div>
+			                            <div class="col-xs-6">
+			                            	<form>
+						                        <select id="meeting-to" class = "form-control to-list" style="margin-bottom: 6%;">
+			                            			<option value="" disabled selected>To</option>
+						                        </select>
+						                        <div class='input-group date' id='meeting-due-picker'>
+								                    <input type='text' class="form-control" id="meeting-due-value" placeholder="Close Date"></input>
+								                    <span class="input-group-addon">
+								                        <span class="glyphicon glyphicon-calendar"></span>
+								                    </span>
+								                </div>
+			                            	</form>
+			                            </div>
+			                        </div>
+								  	<button type="button" class="btn btn-primary" value="" id="save-meeting" data-dismiss="modal" style="margin-top: 15px">Save</button>	
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="task-mail">
+							    	<div class="row">
+			                            <div class="col-xs-6">
+			                            	<form>
+											  	<div class="form-group">
+											  		<input type="text" class="form-control" id="mail-action" value="Mail">
+											  	</div>
+											  	<textarea class="form-control task-comment" rows="1" id="mail-comment" placeholder="Comment"></textarea>
+											</form>  
+			                            </div>
+			                            <div class="col-xs-6">
+			                            	<form>
+						                        <select id="mail-to" class = "form-control to-list" style="margin-bottom: 6%;">
+			                            			<option value="" disabled selected>To</option>
+						                        </select>
+						                        <div class='input-group date' id='mail-due-picker'>
+								                    <input type='text' class="form-control" id="mail-due-value" placeholder="Close Date"></input>
+								                    <span class="input-group-addon">
+								                        <span class="glyphicon glyphicon-calendar"></span>
+								                    </span>
+								                </div>
+			                            	</form>
+			                            </div>
+			                        </div>
+			                        
+								  	<button type="button" class="btn btn-primary" value="" id="save-mail" data-dismiss="modal" style="margin-top: 15px">Save</button>	
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="task-others">
+							    	<div class="form-group">
+								  		<input type="text" class="form-control" id="others-action" placeholder="Subject">
+								  	</div>
+			                        <div class="form-group">
+								    	<textarea class="form-control task-comment" rows="1" id="others-comment" placeholder="Comment"></textarea>
+								  	</div>
+								  	<div class='input-group date' id='others-due-picker'>
+					                    <input type='text' class="form-control" id="others-due-value" placeholder="Close Date"></input>
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+					                </div>
+					                <button type="button" class="btn btn-primary" value="" id="save-others" data-dismiss="modal" style="margin-top: 15px">Save</button>	
+							    </div>
+						  	</div>
+						</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- contact modal  -->
+		<div class="modal fade" id="contactModal" aria-labelledby="contactModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="contact-modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                            	<form>
+                            		<div class="form-group">
+								    	<input type="text" class="form-control" id="contact-name" placeholder="Name">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="contact-title" placeholder="Title">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="contact-email" placeholder="E-mail">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="contact-phone" placeholder="Phone">
+								  	</div>
+								</form>  
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+			                        <select id="contact-category" class = "form-control" style="margin-bottom: 6%;">
+                            			<option value="" disabled selected>Category</option>
+                            			<option value="Decision Maker">Decision Maker</option>
+                            			<option value="Influencer">Influencer</option>
+                            			<option value="Inquirer">Inquirer</option>
+			                        </select>
+                            	</form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-contact" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- delete note modal -->
+        <div class="modal fade" id="deleteNoteModal" aria-labelledby="deleteNoteModal" aria-hidden="true" style="z-index: 1070;">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h4 class="modal-title" id="delete-note-title"></h4>
+	                </div>
+	                <div class="modal-footer">
+	                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete-note">Delete</button>
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+		<section id="content">
+            <div class="aui-sidebar">
+                <div class="aui-sidebar-wrapper" id="sidebar">
+
+                </div>
+            </div>
+
+           	<div class="aui-page-panel">
+                <div class="aui-page-panel" style="margin-top:0%">
+				    <div class="aui-page-panel-inner">
+				        <section class="aui-page-panel-content">
+				        	<div class="row">
+					        	<div class="col-xs-10">
+	                               	<h2 id="opportunity-panel-title" style="color:#2b669a"></h2>
+				        			<div class="row">
+				        				<div class="col-xs-3">
+				        					<h4 id="opportunity-company"></h4>
+				        				</div>
+				        				<div class="col-xs-3">
+				        					<h4 id="opportunity-due"></h4>
+				        				</div>
+				        				<div class="col-xs-3">
+				        					<h4 id="opportunity-value"></h4>
+				        				</div>
+				        				<div class="col-xs-3">
+				        					<h4 id="opportunity-owner"></h4>
+				        				</div>
+				        			</div>
+	                            </div>
+	                            <div class="col-xs-2">
+	                            	<div id="delete-opportunity"><button type="button" class="btn btn-danger button-panel" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+	                            		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	                            	</button></div>
+
+	                            	<div id="transfer-opportunity"><button type="button" class="btn btn-warning button-panel" data-toggle="tooltip" data-placement="bottom" title="Transfer">
+	                            		<span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+	                            	</button></div>
+
+	                            	<div id="edit-opportunity"><button type="button" class="btn btn-warning button-panel" data-toggle="tooltip" data-placement="bottom" title="Edit">
+	                            		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	                            	</button></div>
+	                            </div>
+	                        </div>
+				            
+				        </section>
+				    </div>
+				</div>
+            </div>
+
+            <div class="aui-page-panel main-panel">
+		        <section id="lead-layout" style="height:101.2%">
+		            <div class="ui-layout-center" >
+
+		            	<!-- Opportunity pipeline -->
+		            	<div id="opportunity-pipeline">
+	                       	<ul class="nav nav-tabs" role="tablist" id="opportunity-pipeline-tabs">
+							    <li role="presentation" class="active stage-tab stage-tab-success"><a href="#qualification-stage" aria-controls="qualification-stage" role="tab" data-toggle="tab" style="margin:0px"><span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green; margin-right:5%"></span>Qualification</a></li>
+							    <li role="presentation" class="stage-tab stage-tab-wait"><a href="#analysis-stage" aria-controls="analysis-stage" role="tab" data-toggle="tab" style="margin:0px"  id="tab-1">Analysis</a></li>
+							    <li role="presentation" class="stage-tab stage-tab-wait"><a href="#proposal-stage" aria-controls="proposal-stage" role="tab" data-toggle="tab" style="margin:0px" id="tab-2">Proposal</a></li>
+							    <li role="presentation" class="stage-tab stage-tab-wait"><a href="#negotiation-stage" aria-controls="negotiation-stage" role="tab" data-toggle="tab" style="margin:0px" id="tab-3">Negotiation</a></li>
+							    <li role="presentation" class="stage-tab stage-tab-wait"><a href="#close-stage" aria-controls="close-stage" role="tab" data-toggle="tab" style="margin:0px" id="tab-4">Closing</a></li>
+							</ul>
+
+							<div class="tab-content">
+
+								<!-- qualification stage-->
+							    <div role="tabpanel" class="tab-pane active" id="qualification-stage">
+							    	<div class="options-section">
+							    		<div class="row">
+							    			<div class="col-xs-6">
+				                       			<div class="row">
+				                       				<div class="col-xs-1"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></div>
+				                       				<div class="col-xs-11" style="padding-left:0px"><h4 id="start-deal"></h4></div>
+				                       			</div>
+				                       		</div>
+				                       		<div class="col-xs-6">
+				                       			<div class="row">
+				                       				<div class="col-xs-1"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></div>
+				                       				<div class="col-xs-11" style="padding-left:0px"><h4>Purpose - Operation expanding</h4></div>
+				                       			</div>
+				                       		</div>
+				                       	</div>
+
+				                       	<div class="row">
+				                       		<div class="col-xs-6">
+				                       			<div class="row">
+				                       				<div class="col-xs-1"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></div>
+				                       				<div class="col-xs-11" style="padding-left:0px"><h4 id="probability"></h4></div>
+				                       			</div>
+				                       		</div>
+				                       		<div class="col-xs-6">
+				                       			<div class="row">
+				                       				<div class="col-xs-1"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></div>
+				                       				<div class="col-xs-11" style="padding-left:0px"><h4>Quantity - 20 sedan cars</h4></div>
+				                       			</div>
+				                       		</div>
+				                       	</div>
+							    	</div>
+							    </div>
+
+							    <!-- analysis stage -->
+							    <div role="tabpanel" class="tab-pane" id="analysis-stage">
+							    	<div class="options-section">
+							    		<div class="row">
+							    			<div class="col-xs-1">
+							    				<button type="button" class="btn btn-default" id="car-list-modal"  data-toggle="modal" data-target="#yourCarModal">
+								              		Your Cars
+								              	</button>
+							    			</div>
+							    			<div class="col-xs-1">
+							    				<button type="button" class="btn btn-default" id="add-competitor"  data-toggle="modal" data-target="#competitorModal">
+								              		Competitor
+								              	</button>
+							    			</div>
+							    			<div class="col-xs-1">
+								              	<button type="button" class="btn btn-default" id="generate-table">
+								              		Get Information
+								              	</button>
+							    			</div>
+							    			<div class="col-xs-9">
+							    				<button type="button" class="btn btn-primary win-stage" value="analysis" style="float:right">
+								              		Win
+								              	</button>
+								              	<button type="button" class="btn btn-danger lose-stage" value="analysis" style="float:right;margin-right:5px">
+								              		Lose
+								              	</button>
+							    			</div>
+							    		</div>
+
+							    		<div class="row" style="margin-top:20px">
+				                       		<div class="col-xs-8" id="selected-car">
+				                       		</div>
+				                       	</div>
+
+				                       	<div class="row">
+				                       		<div class="col-xs-8" id="competitor-car">
+				                       		</div>
+				                       	</div>
+
+				                       	<div id="comparasion-area">
+				                       		<!-- Nav tabs -->
+											<ul class="nav nav-tabs" role="tablist">
+											    <li role="presentation" class="active"><a href="#engine-tab" aria-controls="engine-tab" role="tab" data-toggle="tab">Engine</a></li>
+											    <li role="presentation"><a href="#safty-tab" aria-controls="safty-tab" role="tab" data-toggle="tab">Safety</a></li>
+											    <li role="presentation"><a href="#equipment-tab" aria-controls="equipment-tab" role="tab" data-toggle="tab">Equipment</a></li>
+											   
+											</ul>
+
+											<!-- Tab panes -->
+											<div class="tab-content">
+											    <div role="tabpanel" class="tab-pane active" id="engine-tab">
+											    	<table id="car-info-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+						                       			<thead>
+							                                <tr>
+							                                	<th>Spec</th>
+							                                    <th>Your's Offer</th>
+							                                </tr>
+							                            </thead>  
+							                        </table>
+
+							                        <table id="car-compare-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+							                            <thead>
+							                                <tr>
+							                                	<th>Spec</th>
+							                                    <th>Your's Offer</th>
+							                                    <th>Competitor's Offer</th>
+							                                    <th>Comparison</th>
+							                                </tr>
+							                            </thead>  
+							                        </table>
+											    </div>
+											    <div role="tabpanel" class="tab-pane" id="safty-tab">
+											    	<table id="safety-compare-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+							                            <thead>
+							                                <tr>
+							                                	<th>Spec</th>
+							                                    <th>Your's Offer</th>
+							                                    <th>Competitor's Offer</th>
+							                                </tr>
+							                            </thead>  
+							                        </table>
+											    </div>
+											    <div role="tabpanel" class="tab-pane" id="equipment-tab">
+											    	<table id="equipment-compare-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+							                            <thead>
+							                                <tr>
+							                                	<th>Spec</th>
+							                                    <th>Your's Offer</th>
+							                                    <th>Competitor's Offer</th>
+							                                </tr>
+							                            </thead>  
+							                        </table>
+											    </div>
+											</div>
+				                       	</div>
+							    	</div>
+							    </div>
+
+							    <!-- proposal stage -->
+							    <div role="tabpanel" class="tab-pane" id="proposal-stage">
+							    	<div class="options-section">
+							    		<div class="row">
+							    			<div class="col-xs-4">
+							    				<button type="button" class="btn btn-primary" id="add-proposal-modal"  data-toggle="modal" data-target="#proposalModal">
+								              		Add Proposal
+								              	</button>
+								              	<button type="button" class="btn btn-warning" id="accept-proposal">
+								              		Accept Proposal
+								              	</button>
+								              	<button type="button" class="btn btn-warning" id="reject-proposal">
+								              		Reject Proposal
+								              	</button>
+							    			</div>
+								    		<div class="col-xs-8">
+							    				<button type="button" class="btn btn-primary win-stage" value="proposal" style="float:right">
+								              		Win
+								              	</button>
+								              	<button type="button" class="btn btn-danger lose-stage" value="proposal" style="float:right;margin-right:5px">
+								              		Lose
+								              	</button>
+							    			</div>
+							    		</div>
+							    		<div class="row" style="margin-top:10px">
+							    			<div class="col-xs-12">
+							    				<table id="proposal-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+						                            <thead>
+						                                <tr>
+						                                	<th>No</th>
+						                                	<th>Model</th>
+						                                	<th>Guarantee</th>
+						                                    <th>Number</th>
+						                                    <th>Total Price</th>
+						                                    <th>Status</th>
+						                                </tr>
+						                            </thead>  
+						                        </table>
+							    			</div>
+							    		</div>
+							    	</div>
+							    </div>
+
+							    <!-- negotiation stage -->
+							    <div role="tabpanel" class="tab-pane" id="negotiation-stage">
+							    	<div class="options-section">
+							    		<div class="row">
+							    			<div class="col-xs-10">
+							    				<div class="row">
+							    					<div class="col-xs-4">
+						                       			<div class="row">
+						                       				<div class="col-xs-1"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></div>
+						                       				<div class="col-xs-11" style="padding-left:0px"><h4>Probability - 65%</h4></div>
+						                       			</div>
+						                       		</div>
+						                       		<div class="col-xs-4">
+						                       			<div class="row">
+						                       				<div class="col-xs-1"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></div>
+						                       				<div class="col-xs-11" style="padding-left:0px"><h4>Historical Record - 0</h4></div>
+						                       			</div>
+						                       		</div>
+						                       		<div class="col-xs-4">
+						                       			<div class="row">
+						                       				<div class="col-xs-1"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></div>
+						                       				<div class="col-xs-11" style="padding-left:0px"><h4>Nego Win - 90%</h4></div>
+						                       			</div>
+						                       		</div>
+							    				</div>
+							    			</div>
+				                       		
+				                       		<!-- <div class="col-xs-3">
+				                       			<div class="row">
+				                       				<div class="col-xs-1"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></div>
+				                       				<div class="col-xs-11" style="padding-left:0px"><h4>Conversion Rate - 80%</h4></div>
+				                       			</div>
+				                       		</div> -->
+				                       		<div class="col-xs-2">
+							    				<button type="button" class="btn btn-primary win-stage" value="negotiation" style="float:right">
+								              		Win
+								              	</button>
+								              	<button type="button" class="btn btn-danger lose-stage" value="negotiation" style="float:right;margin-right:5px">
+								              		Lose
+								              	</button>
+							    			</div>
+				                       	</div>
+
+				                       	<div class="row">
+				                       		<!-- Nav tabs -->
+											<ul class="nav nav-tabs" role="tablist">
+											    <li role="presentation" class="active"><a href="#trend-tab" aria-controls="trend-tab" role="tab" data-toggle="tab">Sale Trend</a></li>
+											    <li role="presentation"><a href="#promotion-tab" aria-controls="promotion-tab" role="tab" data-toggle="tab">Promotion</a></li>
+											</ul>
+
+											  <!-- Tab panes -->
+											<div class="tab-content">
+											    <div role="tabpanel" class="tab-pane active" id="trend-tab">
+										    		<div id="car-trend-graph"></div>
+											    </div>
+											    <div role="tabpanel" class="tab-pane" id="promotion-tab">
+											    	<div class="options-section">
+											    		<div class="row">
+											    			<div class="col-xs-3">
+								                       			<h4 id="current-payment"></h4>
+								                       		</div>
+								                       		<div class="col-xs-3">
+								                       			<div class="row">
+								                       				<h4 id="maximum-discount">
+								                       			</div>
+								                       		</div>
+												    		<div class="col-xs-6">
+								                       			<div class="row">
+								                       				<h4 id="current-profit"></h4>
+								                       			</div>
+								                       		</div>
+												    	</div>
+
+												    	<div class="row" style="margin-top:15px"> 
+												    		<div class="col-xs-5">
+												    			<select id="service-type" class = "form-control">
+							                            			<option value="" type="0">Service Promotion</option>
+										                            <option value="150" type="1">Free Maintenance</option>
+										                            <option value="250" type="2">Year Warranty Extend</option>
+										                            <option value="500" type="3">Shopping Voucher (10%)</option>
+										                        </select>
+												    		</div>
+												    		<div class="col-xs-1">
+										                        <select id="service-amount" class = "form-control">
+										                            <option value="1">1</option>
+										                            <option value="2">2</option>
+										                            <option value="3">3</option>
+										                            <option value="4">4</option>
+										                            <option value="5">5</option>
+										                        </select>
+												    		</div>
+
+												    		<div class="col-xs-2">
+											    				<button type="button" class="btn btn-success" id="estimate-price" style="float:right">
+												              		Estimate Profit
+												              	</button>
+											    			</div>
+
+											    			<div class="col-xs-4">
+											    				<h4 id="estimate-cost"></h4>
+											    			</div>
+												    		
+												    	</div>
+												    	<div class="row" style="margin-top:15px"> 
+												    		<div class="col-xs-5">
+												    			<div class="form-group">
+															    	<input type="text" class="form-control" id="percent-price-discount" placeholder="Price Discount(%)">
+															  	</div>
+												    		</div>
+												    	</div>
+												    	<div class="row" style="margin-top:15px"> 
+												    		<div class="col-xs-2">
+											    				<button type="button" class="btn btn-primary" id="save-discount">
+												              		Save Discount
+												              	</button>
+											    			</div>
+												    	</div>
+											    	</div>
+											    </div>
+											</div>
+										</div>
+							    	</div>
+							    </div>
+
+							    <!-- close stage -->
+							    <div role="tabpanel" class="tab-pane" id="close-stage">
+							    	<div class="options-section">
+							    		
+							    	</div>
+							    </div>
+							</div>
+						</div>
+
+						<div id="opportunity-options" style="margin-top: 2%">
+							<!-- note, feed, detail -->
+							<ul class="nav nav-tabs" role="tablist" style="background-color: #F5F8FA;">
+							    <li role="presentation" class="active"><a href="#feeds" aria-controls="feeds" role="tab" data-toggle="tab">Feeds</a></li>
+							    <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Notes</a></li>
+							    <!-- <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li> -->
+							</ul>
+
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="feeds">
+									<div id="comment-section" class="options-section">
+										<div class="list-group" id="comment-list">
+											<!-- comment lít -->
+										  	
+
+										</div>
+									</div>
+								</div>
+							    <div role="tabpanel" class="tab-pane" id="notes">
+							    	<div id="notes-section" class="row">
+						    			<div class="col-xs-4" style="max-height: 600px;overflow-y: auto">
+						    				<div class="list-group" id="note-list">
+
+									    	</div>
+						    			</div>
+
+						    			<div class="col-xs-8">
+						    				<div class="row" style="padding-top:1%;padding-left:1%">
+								            	<div class="col-xs-8">
+								                 	<h2 contenteditable="true" id="note-subject"></h2>
+								              	</div>
+									            <div class="col-xs-4">
+									              	<button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Down" id="down-note" style="float:right;margin-right: 14%;">
+									              		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+									              	</button>
+									              	<button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Up" id="up-note" style="float:right;margin-right: 3%;">
+									              		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+									              	</button>
+									                <button type="button" class="btn btn-sucess btn-sm" data-toggle="tooltip" data-placement="bottom" title="Save" id="save-note" style="float:right;margin-right: 3%;">
+									                  	<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+									                </button>
+									                <div id="delete-note"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Remove" style="float:right;margin-right: 3%;">
+								                		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								                	</button></div>
+
+								                	<div id="add-note"><button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="New Note" style="float:right;margin-right: 3%;">
+								                		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								                	</button></div>
+									            </div>
+								            </div>
+
+								            <hr style="margin-top: 10px;margin-bottom: 10px;">
+
+								            <div class="row" style="padding-left:2%;padding-right:1%;">
+									            <div class="col-xs-1" style="padding: 0%">
+									                <div><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Related">
+									                  <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>Related
+									                </button></div>
+									            </div>
+									            <div class="col-xs-11">
+									                <select class="form-control" id="note-related-select" multiple="multiple" style="max-width: 100%;">
+									                  
+									                </select>
+									            </div>
+								            </div>
+								            <div id="text-editor"></div>
+						    				
+						    			</div>
+							    			
+							    	</div>
+							    </div>
+							    <div role="tabpanel" class="tab-pane" id="messages">...</div>
+							</div>
+						</div>
+						
+                    </div>
+
+                    <div class="ui-layout-east">
+
+                    	<!-- timeline -->
+                    	<div id="task-timeline-opportunity" class="side-list-container" style="max-height: 60%;">
+                    	<!-- <div id="task-timeline" style="max-height: 60%;overflow-y: auto;overflow-x: hidden;"> -->
+                    		<div id="next-step">
+                    			<div id="next-header">
+                    				<div class="row" style="margin-bottom: 10px;">
+							        	<div class="col-xs-8">
+			                              	<h3>Next Steps</h3>
+			                            </div>
+			                            <div class="col-xs-4"  style="padding-left: 5px">
+			                            	<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="More" id="new-task" style="float:right;margin-right: 10%;">
+							              		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							              	</button>
+			                            </div>
+			                        </div>
+                    			</div>
+
+                    			<!--  next steps -->
+                    			<div id="next-step-list">
+
+			                    </div>
+                    		</div>
+                    		<div id="past-activity">
+                    			<div id="past-header">
+                    			</div>
+                    			
+                    			<div id="past-activity-list">
+			                        <!-- <div class="row">
+							        	<div class="col-xs-2">
+			                               	<a class="step-item-icon activity-lost"> <span class="glyphicon glyphicon-briefcase" aria-hidden="true" style="color:white;font-size: 18px;"></span></a>
+			                               	<div class="step-item-line"><div style="background-color:red"></div></div>
+			                            </div>
+			                            <div class="col-xs-10"  style="padding-left: 6px">
+				                            <h5 class="opportunity-item-list-name"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" style="color:red;margin-right: 5px"></span>Follow up with opportunity</h5>
+				                            <div class="side-list-item-info">information</div>
+				                            <div class="side-list-item-info">Deadline</div>		
+			                            </div>
+			                        </div> -->
+                    			</div>
+                    			
+                    		</div>
+                    	</div>
+
+                    	<!-- contact -->
+                    	<div id="contact-list-opportunity" class="side-list-container">
+	                        
+
+                    	</div>
+                    </div>
+		        </section>
+			</div>
+
+        </section>
+	</body>
+	   
+
+
+</html>

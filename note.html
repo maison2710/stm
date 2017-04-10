@@ -1,0 +1,177 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">        
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css">
+	    <link rel="stylesheet" type="text/css" href="css/toastr.css">
+	    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui.css"/>
+	    <link rel="stylesheet" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui-experimental.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+      <link href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2-bootstrap.css" rel="stylesheet" />
+	    <link rel="stylesheet" type="text/css" href="css/editor.css">  
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+	    <script src="js/lib/jquery-1.11.1.min.js"></script>
+	    <script src="js/lib/jquery-ui.js"></script>
+	    <script src="js/lib/jquery.dataTables.js"></script>
+	    <script src="js/lib/dataTables.bootstrap.min.js"></script>  
+	    <script src="js/lib/moment-with-locales.min.js"></script>
+	    <script src="js/lib/moment-timezone-with-data.min.js"></script>
+	    <script src="js/lib/bootstrap.min.js"></script>
+	    <script src="js/lib/toastr.js"></script>
+	    <script src="js/lib/jquery.layout-latest.js"></script>
+	    <script src="js/lib/highcharts.js"></script>
+	    <script src="js/lib/data.js"></script>
+	    <script src="js/lib/export-csv.js"></script>
+	    <script src="js/lib/exporting.js"></script>
+	    <script src="js/lib/jquery.plugin.js"></script>
+	    <script src="js/lib/jquery.daterangepicker.js"></script>
+	    <script src="js/lib/jquery.rateyo.min.js"></script>
+	    <script src="js/lib/editor.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-experimental.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-datepicker.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script> 
+	    <script src="js/src/common.js"></script>
+	    <script src="js/src/note.js"></script>
+	    
+	</head>
+	
+	<style>
+    .Editor-container {
+      padding:1%;
+      padding-top:0%;
+    }
+    .Editor-editor{
+      height: 75%
+    }
+	</style>
+
+	<body>
+
+  <!-- delete note modal -->
+    <div class="modal fade" id="deleteNoteModal" aria-labelledby="deleteNoteModal" aria-hidden="true" style="z-index: 1070;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="delete-note-title"></h4>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete-note">Delete</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+		<header role="banner" id="header">
+		
+		</header>
+
+		<section id="content">
+      <div class="aui-sidebar">
+        <div class="aui-sidebar-wrapper" id="sidebar">
+
+        </div>
+      </div>
+
+     	<div class="aui-page-panel">
+        <div class="aui-page-panel"  style="margin-top:0%">
+    	    <div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+            	<div class="row">
+    	        	<div class="col-xs-10">
+                  <h1 id="note-panel-title">My notes</h1>
+            			<p id="note-info"></p>
+                </div>
+                <div class="col-xs-2">
+                	<div id="delete-note"><button type="button" class="btn btn-danger button-panel" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+                		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                	</button></div>
+
+                	<div id="add-note"><button type="button" class="btn btn-primary button-panel" data-toggle="tooltip" data-placement="bottom" title="New Note">
+                		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                	</button></div>
+
+                  <div><button type="button" id="filter-star-note" class="btn btn-default button-panel" data-toggle="tooltip" data-placement="bottom" title="Star">
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true" style="color:orange"></span>
+                  </button></div>
+                  <div><button type="button" id="unfilter-star-note" class="btn btn-default button-panel" data-toggle="tooltip" data-placement="bottom" title="All">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange"></span>
+                  </button></div>
+
+      			    	<!-- <div><button id="filter-note" type="button" class="btn btn-primary button-panel" data-toggle="popover" title="Popover title">
+              			<span class="glyphicon glyphicon-filter" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Advanced Filter"></span></button>
+                  </div> -->
+                </div>
+              </div>
+            </section>
+    	    </div>
+	      </div>
+      </div>
+
+			<div class="aui-page-panel main-panel">
+        <section id="lead-layout" style="height:101.2%">
+            <!-- west -->
+          <div class="ui-layout-west" style="padding:0px">
+            <div class="list-group" id="note-list">
+
+    			  </div>
+          </div>
+
+                <!-- center -->
+          <div class="ui-layout-center" style="padding:0px">
+            <div class="row" style="padding-top:1%;padding-left:1%">
+            	<div class="col-xs-8">
+                 <h2 contenteditable="true" id="note-subject"></h2>
+              </div>
+              <div class="col-xs-4">
+              	<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Down" id="down-note" style="float:right;margin-right: 14%;">
+              		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+              	</button>
+              	<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Up" id="up-note" style="float:right;margin-right: 3%;">
+              		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+              	</button>
+                <button type="button" class="btn btn-sucess" data-toggle="tooltip" data-placement="bottom" title="Save" id="save-note" style="float:right;margin-right: 3%;">
+                  <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+            <hr style="margin-top: 10px;margin-bottom: 10px;">
+
+            <div class="row" style="padding-left:2%;padding-right:1%;">
+              <div class="col-xs-1" style="padding: 0%">
+                <div><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Related">
+                  <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>Related
+                </button></div>
+              </div>
+              <div class="col-xs-2">
+                <select id="related-type" class = "form-control">
+                  <option value="" disabled selected>Type</option>
+                  <option value="opportunity">Opportunity</option>
+                  <option value="lead">Sale Lead</option>
+                  <option value="contact">Contact</option>
+                </select>
+              </div>
+              <div class="col-xs-9">
+                <select class="form-control" id="note-related-select" multiple="multiple" style="max-width: 100%;">
+                  
+                </select>
+              </div>
+            </div>
+            <div id="text-editor"></div>
+          </div>
+		    </section>
+			</div>
+
+    </section>
+
+	</body>
+	   
+</html>

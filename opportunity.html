@@ -1,0 +1,313 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">        
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css">
+	    <link rel="stylesheet" type="text/css" href="css/toastr.css">
+	    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui.css"/>
+	    <link rel="stylesheet" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui-experimental.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css">
+	    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.5/gridstack.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
+      	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+      	<link href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2-bootstrap.css" rel="stylesheet" />
+	    <link rel="stylesheet" type="text/css" href="css/editor.css">  
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+	    <script src="js/lib/jquery-1.11.1.min.js"></script>
+	    <script src="js/lib/jquery-ui.js"></script>
+	    <script src="js/lib/jquery.dataTables.js"></script>
+	    <script src="js/lib/dataTables.bootstrap.min.js"></script>  
+	    <script src="js/lib/moment-with-locales.min.js"></script>
+	    <script src="js/lib/moment-timezone-with-data.min.js"></script>
+	    <script src="js/lib/bootstrap.min.js"></script>
+	    <script src="js/lib/toastr.js"></script>
+	    <script src="js/lib/jquery.layout-latest.js"></script>
+	    <script src="js/lib/highcharts.js"></script>
+	    <script src="js/lib/data.js"></script>
+	    <script src="js/lib/export-csv.js"></script>
+	    <script src="js/lib/exporting.js"></script>
+	    <script src="js/lib/jquery.plugin.js"></script>
+	    <script src="js/lib/bootstrap-datetimepicker.js"></script>
+	    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+	    <script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.5/gridstack.min.js'></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-experimental.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-datepicker.js"></script>
+      	<script src="js/src/common.js"></script> 
+	    <script src="js/src/opportunity.js"></script>
+	    
+	</head>
+
+	<style>
+		.grid-stack {
+            background: #F5F8FA;
+        }
+        .grid-stack-item-content {
+            color: #2c3e50;
+            text-align: left;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-left: 8px solid #2b669a;
+			border-radius: 5px 5px 5px 5px;
+			padding:2%;
+			padding-left:5%;
+        }
+        .grid-stack .grid-stack {
+            /*margin: 0 -10px;*/
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .grid-stack .grid-stack .grid-stack-item-content {
+            background: lightpink;
+        }
+
+/*        .grid-stack-item {
+
+		    $gridstack-columns: 4;
+
+		    @for $i from 1 through $gridstack-columns {
+		        &[data-gs-width='#{$i}'] { width: (100% / $gridstack-columns) * $i; }
+		        &[data-gs-x='#{$i}'] { left: (100% / $gridstack-columns) * $i; }
+		        &.grid-stack-item[data-gs-min-width='#{$i}'] { min-width: (100% / $gridstack-columns) * $i; }
+		        &.grid-stack-item[data-gs-max-width='#{$i}'] { max-width: (100% / $gridstack-columns) * $i; }
+		    }
+		}*/
+		.grid-stack-item[data-gs-width="5"]  { width: 100% !important;}
+		.grid-stack-item[data-gs-width="4"]  { width: 80% !important;}
+		.grid-stack-item[data-gs-width="3"]  { width: 60% !important;}
+		.grid-stack-item[data-gs-width="2"]  { width: 40% !important;}
+		.grid-stack-item[data-gs-width="1"]  { width: 20% !important;}
+
+		.grid-stack-item[data-gs-x="4"]  { left: 80% !important;}
+		.grid-stack-item[data-gs-x="3"]  { left: 60% !important;}
+		.grid-stack-item[data-gs-x="2"]  { left: 40% !important;}
+		.grid-stack-item[data-gs-x="1"]  { left: 20% !important;}
+	</style>
+	
+	<body>
+		<header role="banner" id="header">
+		
+		</header>
+
+		<!-- transfer modal  -->
+		<div class="modal fade" id="transferModal" aria-labelledby="transferModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="tranfer-modal-title">Transfer Opportunity</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                        	<div class="col-xs-6">
+                            	<form>
+			                        <select id="modal-transfer-owner" class = "form-control" style="margin-bottom: 6%;">
+                            			
+			                        </select>
+                            	</form>
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+								  	<div class="checkbox">
+									    <label>
+									      	<input type="checkbox" id="transfer-account"> Transfer this Account too
+									    </label>
+									  </div>
+								</form>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-opportunity-transfer" data-dismiss="modal">Transfer</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- opportunity modal  -->
+		<div class="modal fade" id="opportunityModal" aria-labelledby="opportunityModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="lead-modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                            	<form>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-name" placeholder="Name">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-value" placeholder="Value">
+								  	</div>
+								   	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-car-type" placeholder="Car type">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-quantity" placeholder="Quantity">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-purpose" placeholder="Purpose">
+								  	</div>
+								</form>  
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+                            		<div class="form-group">
+	                            		<select id="modal-account-list" class = "form-control" style="margin-bottom: 6%;">
+	                            			
+				                        </select>
+
+				                        <select id="modal-opportunity-owner" class = "form-control" style="margin-bottom: 6%;">
+	                            			<option value="" disabled selected>Select Owner</option>
+				                        </select>
+			                        </div>
+
+			                        <div class="form-group">
+								    	<div class='input-group date' id='due-picker'>
+						                    <input type='text' class="form-control" id="due-value" placeholder="Close Date"></input>
+						                    <span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+								  	</div>
+                            	</form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-opportunity">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<section id="content">
+            <div class="aui-sidebar">
+                <div class="aui-sidebar-wrapper" id="sidebar">
+
+                </div>
+            </div>
+
+           	<div class="aui-page-panel">
+                <div class="aui-page-panel"  style="margin-top:0%">
+				    <div class="aui-page-panel-inner">
+				        <section class="aui-page-panel-content">
+				        	<div class="row">
+					        	<div class="col-xs-10">
+	                               	<h1 id="opportunity-panel-title">My Open Opportunities</h1>
+				        			<p id="info"></p>
+	                            </div>
+	                            <div class="col-xs-2">
+	                            	<select id="opportunity-select" class = "form-control" style="float:right">
+		                    			
+			                        </select>
+	                            	<div id="add-opportunity"><button type="button" class="btn btn-primary button-panel" data-toggle="tooltip" data-placement="bottom" title="New Opportunity" style="margin-top: 0%;">
+	                            		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	                            	</button></div>
+	                            	<div><button type="button" id="sort-opportunity" class="btn btn-primary button-panel" data-toggle="popover" data-placement="bottom" title="Sort Opportunity" style="margin-top: 0%;">
+	                            		<span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+	                            	</button></div>
+	                            	<div id="transfer-opportunity"><button type="button" class="btn btn-warning button-panel" data-toggle="tooltip" data-placement="bottom" title="Transfer Opportunity" style="margin-top: 0%;">
+	                            		<span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+	                            	</button></div>
+	                            	<div id="list-view"><button type="button" class="btn btn-default button-panel" data-toggle="tooltip" data-placement="bottom" title="List View" style="margin-top: 0%;">
+	                            		<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+	                            	</button></div>
+	                            	<div id="grid-view"><button type="button" class="btn btn-default button-panel" data-toggle="tooltip" data-placement="bottom" title="Grid View" style="margin-top: 0%;">
+	                            		<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+	                            	</button></div>
+	                            </div>
+	                            
+	                        </div>
+				            
+				        </section>
+				    </div>
+				</div>
+            </div>
+
+            <div class="aui-page-panel main-panel">
+		        <section id="lead-layout" style="height:101.2%">
+		            <div class="ui-layout-center" >
+		            	<div id="pipeline-view"> 
+		            		<div class="progress" style="height:33px">
+							  	<div id="progress-q" class="progress-bar progress-bar-success" style="width: 19.5%;margin-right: 0.5%;font-size: 18px;padding-top: 3px">
+							    	Qualification
+							  	</div>
+							  	<div id="progress-a" class="progress-bar progress-bar-success" style="width: 19%;margin-right: 0.5%;margin-left: 0.5%;font-size: 18px;padding-top: 3px">
+							    	Analysis
+							  	</div>
+							  	<div id="progress-p" class="progress-bar progress-bar-success" style="width: 19%;margin-right: 0.5%;margin-left: 0.5%;font-size: 18px;padding-top: 3px">
+							    	Proposal
+							  	</div>
+							  	<div id="progress-n" class="progress-bar progress-bar-success" style="width: 19%;margin-right: 0.5%;margin-left: 0.5%;font-size: 18px;padding-top: 3px">
+							    	Negotiation
+							  	</div>
+							  	<div id="progress-c" class="progress-bar progress-bar-success" style="width: 19.5%;margin-left: 0.5%;font-size: 18px;padding-top: 3px">
+							    	Closed/Won
+							  	</div>
+							</div>
+
+							<div class="" style="height:33px;margin-bottom: 1.5%">
+							  	<div id="value-q" class="progress-bar" style="color:#2b669a;background-color: #F5F8FA; width: 19.5%;margin-right: 0.5%;font-size: 25px;padding-top: 3px;font-weight: bold"> 
+							  	</div>
+							  	<div id="value-a" class="progress-bar" style="color:#2b669a;background-color: #F5F8FA;width: 19%;margin-right: 0.5%;margin-left: 0.5%;font-size: 25px;padding-top: 3px;font-weight: bold">
+							  	</div>
+							  	<div id="value-p" class="progress-bar" style="color:#2b669a;background-color: #F5F8FA;width: 19%;margin-right: 0.5%;margin-left: 0.5%;font-size: 25px;padding-top: 3px;font-weight: bold">
+							  	</div>
+							  	<div id="value-n" class="progress-bar" style="color:#2b669a;background-color: #F5F8FA;width: 19%;margin-right: 0.5%;margin-left: 0.5%;font-size: 25px;padding-top: 3px;font-weight: bold">
+							  	</div>
+							  	<div id="value-c" class="progress-bar" style="color:#2b669a;background-color: #F5F8FA;width: 19.5%;margin-left: 0.5%;font-size: 25px;padding-top: 3px;font-weight: bold">
+							  	</div>
+							</div>
+
+							<div id="board">
+	                            
+	                        </div>
+		            	</div>
+
+		            	<div id="table-view">
+		            		<table id="opportunity-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+	                            <thead>
+	                                <tr>
+	                                	<th>Id</th>
+	                                    <th>Name</th>
+	                                    <th>Account</th>
+	                                    <th>Value($)</th>
+	                                    <th>Stage</th>
+	                                    <th>Owner</th>
+	                                    <th>Due</th>
+	                                    <th>Updated</th>
+	                                    <th>Status</th>
+	                                    <th>Last Update</th>
+	                                    <th>Due</th>
+	                                    <th>Value</th>
+	                                </tr>
+	                            </thead>     
+	                        </table>
+		            	</div>
+		            	
+                    </div>
+
+                    <div class="ui-layout-east">
+                    	<div id="pipeline-by-stage">
+               				
+               			</div>
+                    </div>
+		        </section>
+			</div>
+
+        </section>
+	</body>
+	   
+
+
+</html>

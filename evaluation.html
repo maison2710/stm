@@ -1,0 +1,117 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">        
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css">
+	    <link rel="stylesheet" type="text/css" href="css/toastr.css">
+	    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui.css"/>
+	    <link rel="stylesheet" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui-experimental.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css"> 
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+	    <script src="js/lib/jquery-1.11.1.min.js"></script>
+	    <script src="js/lib/jquery-ui.js"></script>
+	    <script src="js/lib/jquery.dataTables.js"></script>
+	    <script src="js/lib/dataTables.bootstrap.min.js"></script>  
+	    <script src="js/lib/moment-with-locales.min.js"></script>
+	    <script src="js/lib/moment-timezone-with-data.min.js"></script>
+	    <script src="js/lib/bootstrap.min.js"></script>
+	    <script src="js/lib/toastr.js"></script>
+	    <script src="js/lib/jquery.layout-latest.js"></script>
+	    <script src="js/lib/highcharts.js"></script>
+	    <script src="js/lib/highcharts-more.js"></script>
+		<script src="js/lib/solid-gauge.js"></script>
+	    <script src="js/lib/data.js"></script>
+	    <script src="js/lib/export-csv.js"></script>
+	    <script src="js/lib/exporting.js"></script>
+	    <script src="js/lib/jquery.plugin.js"></script>
+	    <script src="js/lib/jquery.daterangepicker.js"></script>
+	    <script src="js/lib/jquery.rateyo.min.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-experimental.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-datepicker.js"></script>
+	    <script src="js/src/common.js"></script>
+	    <script src="js/src/evaluation.js"></script>
+	    
+	</head>
+	
+	<body>
+		<header role="banner" id="header">
+		
+		</header>
+
+		<section id="content">
+            <div class="aui-sidebar">
+                <div class="aui-sidebar-wrapper" id="sidebar">
+
+                </div>
+            </div>
+
+           	<div class="aui-page-panel">
+                <div class="aui-page-panel"  style="margin-top:0%">
+				    <div class="aui-page-panel-inner">
+				        <section class="aui-page-panel-content">
+				        	<div class="row">
+					        	<div class="col-xs-10">
+	                               	<h1 id="task-panel-title">Team Evaluation</h1>
+				        			<p id="info"></p>
+	                            </div>
+	                            <div class="col-xs-2">
+	                            	
+	                            </div>
+	                        </div>
+				            
+				        </section>
+				    </div>
+				</div>
+            </div>
+
+            <div class="aui-page-panel main-panel">
+		        <section id="evaluation-layout" style="height:104%">
+		            <div class="ui-layout-center" style="background-color:#f5f5f5;overflow-x: hidden;">
+                   		<table id="evaluation-table" class="table display table-bordered data-table" cellspacing="0" width="100%" style="background-color: white">
+                            <thead>
+                                <tr>
+                                	<th>Name</th>
+                                    <th>Monthly Qualification Number</th>
+                                    <th>Analysis Conversion</th>
+                                    <th>Proposal Conversion</th>
+                                    <th>Negotiation Conversion</th>
+                                </tr>
+                            </thead>     
+                        </table>
+
+                        <div class="row" style="margin-top: 15px">
+                        	<div class="col-xs-6">
+                               	<div id="rate-graph"></div>
+                            </div>
+                            <div class="col-xs-6">
+                            	<div id="contact-graph"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-layout-east" style="overflow-x: hidden;">
+                    	<div class="side-list-container">
+							<table id="top-member" class="table display data-table" cellspacing="0" width="100%">
+                    			<thead>
+	                                <tr>
+	                                    <th>Name</th>
+	                                    <th>Rank</th>
+	                                </tr>
+	                            </thead>
+                    		</table>           	
+                    	</div>
+                    </div>
+		        </section>
+			</div>
+        </section>
+	</body>
+	   
+
+
+</html>

@@ -1,0 +1,324 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">        
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css">
+	    <link rel="stylesheet" type="text/css" href="css/toastr.css">
+	    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui.css"/>
+	    <link rel="stylesheet" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui-experimental.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css"> 
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+	    <script src="js/lib/jquery-1.11.1.min.js"></script>
+	    <script src="js/lib/jquery-ui.js"></script>
+	    <script src="js/lib/jquery.dataTables.js"></script>
+	    <script src="js/lib/dataTables.bootstrap.min.js"></script>  
+	    <script src="js/lib/moment-with-locales.min.js"></script>
+	    <script src="js/lib/moment-timezone-with-data.min.js"></script>
+	    <script src="js/lib/bootstrap.min.js"></script>
+	    <script src="js/lib/toastr.js"></script>
+	    <script src="js/lib/jquery.layout-latest.js"></script>
+	    <script src="js/lib/highcharts.js"></script>
+	    <script src="js/lib/data.js"></script>
+	    <script src="js/lib/export-csv.js"></script>
+	    <script src="js/lib/exporting.js"></script>
+	    <script src="js/lib/jquery.plugin.js"></script>
+	    <script src="js/lib/jquery.daterangepicker.js"></script>
+	    <script src="js/lib/jquery.rateyo.min.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-experimental.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-datepicker.js"></script>
+	    <script src="js/src/common.js"></script>
+	    <script src="js/src/lead.js"></script>
+	    
+	</head>
+	
+	<style>
+		.button-panel {
+		    margin-top: 8%;
+		    margin-right: 2%;
+		}
+	</style>
+
+	<body>
+		<header role="banner" id="header">
+		
+		</header>
+
+		<!-- transfer modal  -->
+		<div class="modal fade" id="transferModal" aria-labelledby="transferModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="tranfer-modal-title">Transfer All Leads</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                        	<div class="col-xs-6">
+                            	<form>
+			                        <select class="transfer-owner-list form-control" id="modal-transfer-from" style="margin-bottom: 6%;">
+                            			<option value="" disabled selected>Transfer from</option>
+			                        </select>
+                            	</form>
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+								  	<select class="transfer-owner-list form-control" id="modal-transfer-to" style="margin-bottom: 6%;">
+                            			<option value="" disabled selected>Transfer to</option>
+			                        </select>
+								</form>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-transfer-all-lead" data-dismiss="modal">Transfer</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- delete note modal -->
+	    <div class="modal fade" id="deleteLeadModal" aria-labelledby="deleteLeadModal" aria-hidden="true" style="z-index: 1070;">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h4 class="modal-title">Confirmation</h4>
+	                </div>
+	                <div class="modal-footer">
+	                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete-lead">Delete</button>
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+		<!-- lead modal  -->
+		<div class="modal fade" id="leadModal" aria-labelledby="leadModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="lead-modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-4">
+                            	<form>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-company" placeholder="Company">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-name" placeholder="Name">
+								  	</div>
+								   	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-phone" placeholder="Phone">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-email" placeholder="E-mail">
+								  	</div>
+								</form>  
+                            </div>
+                            <div class="col-xs-4">
+                            	<form>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-size" placeholder="Number Of Employees">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-title" placeholder="Title">
+								  	</div>
+								  	<div class="form-group">
+								    	<input type="text" class="form-control" id="modal-address" placeholder="Address">
+								  	</div>
+								  	<select id="modal-lead-owner" class = "form-control" style="margin-bottom: 5%;">
+                            			<option value="" disabled selected>Select Owner</option>
+			                        </select>
+								</form>  
+                            </div>
+                            <div class="col-xs-4">
+                            	<form>
+                            		<select id="modal-industry" class = "form-control" style="margin-bottom: 5%;">
+                            			<option value="" disabled selected>Select Industry</option>
+			                            <option value="Transportation">Transportation</option>
+			                            <option value="Government">Government</option>
+			                            <option value="Technology">Technology</option>
+			                            <option value="Services">Services</option>
+			                            <option value="Manufacturing">Manufacturing</option>
+			                            <option value="Education">Education</option>
+			                            <option value="Finance">Finance</option>
+			                            <option value="Others">Others</option>
+			                        </select>
+			                        <select id="modal-source" class = "form-control" style="margin-bottom: 5%;">
+                            			<option value="" disabled selected>Select Source</option>
+                            			<option value="web">Web</option>
+                            			<option value="referral">Referral</option>
+                            			<option value="trade show">Trade show</option>
+			                            <option value="conference">Conference</option>
+			                            <option value="advertisement">Advertisement</option>
+			                            <option value="others">Others</option>
+			                        </select>
+			                        <select id="modal-status" class = "form-control" style="margin-bottom: 5%;">
+                            			<option value="" disabled selected>Select Status</option>
+			                            <option value="open">Open</option>
+			                            <option value="contacted">Contacted</option>
+			                            <option value="qualified">Qualified</option>
+			                            <option value="unqualified">Unqualified</option>
+			                        </select>
+			                        <div class="row">
+			                            <div class="col-xs-8">
+			                            	<div id="rateYo"></div>
+			                            </div>
+			                            <div class="col-xs-4">
+			                             	<h4 id="rate-value" style="margin-top:10px"></h4>
+			                            </div>
+			                        </div>
+                            	</form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-body" id="duplicate-detection-area" style="border-top: 1px solid #ddd;">
+                    	<h3 style="margin-bottom:10px;color:red">Existing Lead Found</h3>
+                    	<table id="duplicate-found-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Name</th>
+                                    <th>Industry</th>
+                                    <th>Email</th>
+                                    <th>Size</th>
+                                    <th>Source</th>
+                                    <th>Owner</th>
+                                    <th>Status</th>
+                                    <th>Title</th>
+                                </tr>
+                            </thead>     
+                        </table>
+                    </div>
+
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="submit-lead">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<section id="content">
+            <div class="aui-sidebar">
+                <div class="aui-sidebar-wrapper" id="sidebar">
+
+                </div>
+            </div>
+
+           	<div class="aui-page-panel">
+                <div class="aui-page-panel"  style="margin-top:0%">
+				    <div class="aui-page-panel-inner">
+				        <section class="aui-page-panel-content">
+				        	<div class="row">
+					        	<div class="col-xs-8">
+	                               	<h1 id="lead-panel-title">My Open Leads</h1>
+				        			<p id="info"></p>
+	                            </div>
+	                            <div class="col-xs-4">
+	                            	<div id="transfer-all-leads"><button type="button" class="btn btn-danger button-panel" data-toggle="tooltip" data-placement="bottom" title="Transfer All" >
+	                            		<span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+	                            	</button></div>
+
+	                            	<div id="delete-lead"><button type="button" class="btn btn-danger button-panel" data-toggle="tooltip" data-placement="bottom" title="Remove" >
+	                            		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	                            	</button></div>
+
+	                            	<div id="edit-lead"><button type="button" class="btn btn-warning button-panel" data-toggle="tooltip" data-placement="bottom" title="Edit">
+	                            		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	                            	</button></div>
+
+	                            	<div id="add-lead"><button type="button" class="btn btn-primary button-panel" data-toggle="tooltip" data-placement="bottom" title="New Lead">
+	                            		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	                            	</button></div>
+
+							    	<div><button id="filter-lead" type="button" class="btn btn-primary button-panel timer-tigger" data-toggle="popover" title="Advanced Filter">
+                            			<span class="glyphicon glyphicon-filter" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Advanced Filter"></span>
+                            		</button><div>
+                            		<div><button type="button" id="find-duplicate" class="btn btn-default button-panel" data-toggle="tooltip" data-placement="bottom" title="Duplicates">
+	                            		<span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+	                            	</button></div>
+	                            </div>
+	                        </div>
+				            
+				        </section>
+				    </div>
+				</div>
+            </div>
+
+            <div class="aui-page-panel main-panel">
+		        <section id="lead-layout" style="height:101.2%">
+		            <div class="ui-layout-center" >
+                       	<table id="lead-table" class="table display table-bordered data-table" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                	<th>Id</th>
+                                    <th>Name</th>
+                                    <th>Company</th>
+                                    <th>Industry</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Size</th>
+                                    <th>Source</th>
+                                    <th>Owner</th>
+                                    <th>Updated</th>
+                                    <th>Status</th>
+                                    <th>Rate</th>
+                                    <th>Rate</th>
+                                    <th>Title</th>
+                                    <th>Last Update</th>
+                                    <th>Rank</th>
+                                </tr>
+                            </thead>     
+                        </table>
+                    </div>
+                    <div class="ui-layout-east">
+                    	<div>
+                    		<div class="row">
+                    			<div class="col-xs-6">
+                    				<select id="field-lead" class = "form-control">
+			                            <option value="source">Leads By Source</option>
+			                            <option value="industry">Leads By Industry</option>
+			                            <option value="status">Leads By Status</option>
+			                        </select>
+                    			</div>
+                    			<div class="col-xs-6">
+                    				<select id="chart-lead-type" class = "form-control">
+			                            <option value="pie">Pie Chart</option>
+			                            <option value="column">Column Chart</option>
+			                            <option value="bar">Bar Chart</option>
+			                        </select>
+                    			</div>
+                    		</div>
+                    	</div>
+                    	<div id="leads-statistics-graph"></div>
+                    	<div>
+                    		<table id="lead-count-table" class="table display data-table" cellspacing="0" width="100%">
+                    			<thead>
+	                                <tr>
+	                                    <th>Source</th>
+	                                    <th>Count</th>
+	                                </tr>
+	                            </thead>
+                    		</table>
+                    	</div>
+                    </div>
+		        </section>
+			</div>
+
+
+           
+        </section>
+	</body>
+	   
+
+
+</html>

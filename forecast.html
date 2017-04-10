@@ -1,0 +1,125 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">        
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css">
+	    <link rel="stylesheet" type="text/css" href="css/toastr.css">
+	    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui.css"/>
+	    <link rel="stylesheet" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui-experimental.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css"> 
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+	    <script src="js/lib/jquery-1.11.1.min.js"></script>
+	    <script src="js/lib/jquery-ui.js"></script>
+	    <script src="js/lib/jquery.dataTables.js"></script>
+	    <script src="js/lib/dataTables.bootstrap.min.js"></script>  
+	    <script src="js/lib/moment-with-locales.min.js"></script>
+	    <script src="js/lib/moment-timezone-with-data.min.js"></script>
+	    <script src="js/lib/bootstrap.min.js"></script>
+	    <script src="js/lib/toastr.js"></script>
+	    <script src="js/lib/jquery.layout-latest.js"></script>
+	    <script src="js/lib/highcharts.js"></script>
+	    <script src="js/lib/data.js"></script>
+	    <script src="js/lib/export-csv.js"></script>
+	    <script src="js/lib/exporting.js"></script>
+	    <script src="js/lib/jquery.plugin.js"></script>
+	    <script src="js/lib/jquery.daterangepicker.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-experimental.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-datepicker.js"></script>
+	    <script src="js/src/common.js"></script>
+	    <script src="js/src/forecast.js"></script>
+	    
+	</head>
+	
+	<body>
+		<header role="banner" id="header">
+		
+		</header>
+
+		<section id="content">
+            <div class="aui-sidebar">
+                <div class="aui-sidebar-wrapper" id="sidebar">
+
+                </div>
+            </div>
+
+            <div class="aui-page-panel">
+                <div class="aui-page-panel"  style="margin-top:0%">
+				    <div class="aui-page-panel-inner">
+				        <section class="aui-page-panel-content">
+				        	<div class="row">
+					        	<div class="col-xs-9">
+	                               	<h1 id="forecast-panel-title">Forecast</h1>
+				        			<p id="info"></p>
+	                            </div>
+	                            <div class="col-xs-3">
+	                            	<select id="forecast-select" class = "form-control" style="width:200px;float:right">
+		                    			
+		                    			
+			                        </select>
+			                        <select id="forecast-time-select" class = "form-control" style="width:100px;float:right">
+		                    			<!-- <option value="01-2016">Forecast for All</option>
+		                    			<option value="02-2016">Forecast for All</option>
+		                    			<option value="03-2016">Forecast for All</option> -->
+		                    			<option value="04-2016">04-2016</option>
+		                    			<option value="05-2016">05-2016</option>
+		                    			<option value="06-2016">06-2016</option>
+		                    			<option value="07-2016">07-2016</option>
+		                    			<option value="08-2016">08-2016</option>
+		                    			<option value="09-2016">09-2016</option>
+		                    			<option value="10-2016">10-2016</option>
+		                    			<option value="11-2016">11-2016</option>
+		                    			<option value="12-2016">12-2016</option>
+			                        </select>
+	                            </div>
+	                        </div>
+
+
+				            
+				        </section>
+				    </div>
+				</div>
+            </div>
+
+            <div class="aui-page-panel main-panel">
+		        <section id="forecast-layout" style="height:104%">
+		            <div class="ui-layout-center" style="background-color:#f5f5f5;overflow-x: hidden;">
+                       	<div id="forecast-graph">
+                       		
+                       	</div>
+                    </div>
+                    <div class="ui-layout-east" style="overflow-x: hidden;">
+                    	<div class="side-list-container">
+                    		<div style="margin-bottom: 20px">
+	                          	<h2><ins>Your forecast</ins></h2>
+	                          	<h3 id="total-forecast"></h3>
+	                        </div>
+
+	                        <div>
+	                    		<table id="exe-forecast-by-total-table" class="table display data-table" cellspacing="0" width="100%">
+	                    			<thead>
+		                                <tr>
+		                                    <th>Member</th>
+		                                    <th>Ideal Forecast</th>
+		                                    <th>Your Forecast</th>
+		                                </tr>
+		                            </thead>
+	                    		</table>
+	                    	</div>
+	                    	
+                    	</div>
+                    </div>
+		        </section>
+			</div>
+        </section>
+	</body>
+	   
+
+
+</html>

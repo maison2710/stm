@@ -1,0 +1,73 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/login.css">
+
+        <script src="js/lib/jquery-1.11.1.min.js"></script>
+        <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/lib/jquery.layout-latest.js"></script>
+    </head>
+
+    <script>
+        $(document).ready(function() {
+            var localDomain="http://172.26.147.67:8080";
+            $('#login').click(function(){
+                var email= $("#email").val();
+                var password = $("#password").val();
+                var url = localDomain+"/stm/login";
+                var request = $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: { password : password,email:email },
+                    contentType: 'application/x-www-form-urlencoded',
+                    async: true
+                });
+
+                request.done(function( response ) {
+                    if(response.result){
+                        $.getJSON( localDomain+"/stm/getUserByEmail?email=" + email, {
+                        }).done(function(data) {
+                            $.cookie("userInfo",JSON.stringify(data));
+                            $.cookie("email", email);
+                            $.cookie("password", password);
+                            location.href = "home.html";
+                        });
+
+                        
+                    } else {
+                        $("#email").empty();
+                        $("#password").empty();
+                        $("#error-message").html("Invalid email or password!");
+                    }
+                    
+                }).fail(function() {
+                });
+            });
+        });
+    </script>
+
+    <body>
+
+        <div class="container">
+            <div class="form-signin">
+                <h2 class="form-signin-heading">Easy Saler</h2>
+                <label for="email" class="sr-only">Email address</label>
+                <input type="email" id="email" class="form-control" placeholder="Email address" required="" autofocus="">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Password" required="">
+                <h3 class="bg-danger" id="error-message"></h3>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="remember-me" checked> Remember me
+                  </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" id="login">Sign in</button>
+
+            </div>
+        </div>
+    </body>
+
+</html>

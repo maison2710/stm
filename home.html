@@ -1,0 +1,233 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">        
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css">
+	    <link rel="stylesheet" type="text/css" href="css/toastr.css">
+	    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
+	    <link rel="stylesheet" type="text/css" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui.css"/>
+	    <link rel="stylesheet" type="text/css" href="//aui-cdn.atlassian.com/aui-adg/5.9.16/css/aui-experimental.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css"> 
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+	    <script src="js/lib/jquery-1.11.1.min.js"></script>
+	    <script src="js/lib/jquery-ui.js"></script>
+	    <script src="js/lib/jquery.dataTables.js"></script>
+	    <script src="js/lib/dataTables.bootstrap.min.js"></script>  
+	    <script src="js/lib/moment-with-locales.min.js"></script>
+	    <script src="js/lib/moment-timezone-with-data.min.js"></script>
+	    <script src="js/lib/bootstrap.min.js"></script>
+	    <script src="js/lib/toastr.js"></script>
+	    <script src="js/lib/jquery.layout-latest.js"></script>
+	    <script src="js/lib/highcharts.js"></script>
+	    <script src="js/lib/highcharts-more.js"></script>
+		<script src="js/lib/solid-gauge.js"></script>
+	    <script src="js/lib/data.js"></script>
+	    <script src="js/lib/export-csv.js"></script>
+	    <script src="js/lib/exporting.js"></script>
+	    <script src="js/lib/jquery.plugin.js"></script>
+	    <script src="js/lib/jquery.daterangepicker.js"></script>
+	    <script src="js/lib/jquery.rateyo.min.js"></script>
+	    <script src="js/lib/bootstrap-datetimepicker.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-experimental.js"></script>
+	    <script src="//aui-cdn.atlassian.com/aui-adg/5.9.16/js/aui-datepicker.js"></script>
+	    <script src="js/src/common.js"></script>
+	    <script src="js/src/home.js"></script>
+	    
+	</head>
+
+	<style>
+		@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+		.ui-layout-east .dropdown-menu > li {
+		    display: inline-block;
+		    float:left;
+		}
+		.ui-layout-east .open > ul {
+		    display: inline-flex !important;
+		}
+
+		.Editor-container {
+	      	padding:1%;
+	      	padding-top:0%;
+	    }
+	    .Editor-editor{
+	     	height: 380px;
+	    }
+	</style>
+	
+	<body>
+		<header role="banner" id="header">
+		
+		</header>
+
+		<!-- update task modal  -->
+		<div class="modal fade" id="updateTaskModal" aria-labelledby="updateTaskModalLabel" aria-hidden="true" style="z-index: 1070;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update Task</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                        	<div class="col-xs-6">
+                            	<div class="form-group">
+							    	<input type="text" class="form-control" id="update-task-subject" placeholder="Name">
+							  	</div>
+							  	<div class="form-group">
+							    	<input type="text" class="form-control" id="update-task-comment" placeholder="Value">
+							  	</div>
+                            </div>
+                            <div class="col-xs-6">
+                            	<form>
+								  	<select class="form-control" id="task-transfer-to" style="margin-bottom: 6%;">
+                            			<option value="" disabled selected>Assign to</option>
+			                        </select>
+			                        <div class='input-group date' id='update-due-picker'>
+					                    <input type='text' class="form-control" id="update-due-value" placeholder="Close Date"></input>
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+					                </div>
+								</form>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button type="button" class="btn btn-primary" value="" id="update-task" data-dismiss="modal">Update</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<section id="content">
+            <div class="aui-sidebar">
+                <div class="aui-sidebar-wrapper" id="sidebar">
+
+                </div>
+            </div>
+
+           	<div class="aui-page-panel">
+                <div class="aui-page-panel"  style="margin-top:0%">
+				    <div class="aui-page-panel-inner">
+				        <section class="aui-page-panel-content">
+				        	<div class="row">
+					        	<div class="col-xs-10">
+	                               	<h1 id="home-panel-title">My Dashboard</h1>
+				        			<!-- <p id="info"></p> -->
+	                            </div>
+	                            <div class="col-xs-2">
+	                            	<select id="dashboard-select" class = "form-control" style="float:right">
+		                    			
+			                        </select>
+	                            </div>
+	                        </div>
+				            
+				        </section>
+				    </div>
+				</div>
+            </div>
+
+            <div class="aui-page-panel main-panel">
+		        <section id="dashboard-layout" style="height:104%">
+		            <div class="ui-layout-center" style="background-color:#f5f5f5;overflow-x: hidden;">
+		            	<!-- sale executive view -->
+		            	<div id="executive-view">
+		            		<div class="row">
+	                       		<div class="col-xs-8">
+	                       			<div id="pipeline-by-stage">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       		<div class="col-xs-4" style="padding-left: 0%">
+	                       			<div id="avq">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       	</div>
+	                       	<div class="row" style="margin-top:0.5%">
+	                       		<div class="col-xs-4">
+	                       			<div id="active-contact">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       		<div class="col-xs-4" style="padding-left: 0%">
+	                       			<div id="task-stat">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       		<div class="col-xs-4" style="padding-left: 0%">
+	                       			<div id="top-opportunity">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       	</div>
+		            	</div>
+
+		            	<!-- sale manager view -->
+		            	<div id="manager-view">
+		            		<div class="row">
+	                       		<div class="col-xs-8">
+	                       			<div id="manager-pipeline-by-stage">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       		<div class="col-xs-4" style="padding-left: 0%">
+	                       			<div id="m-avq">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       	</div>
+	                       	<div class="row" style="margin-top:0.5%">
+	                       		<div class="col-xs-4">
+	                       			<div id="manager-active-contact">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       		<div class="col-xs-4" style="padding-left: 0%">
+	                       			<div id="team-progress">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       		<div class="col-xs-4" style="padding-left: 0%">
+	                       			<div id="manager-top-opportunity">
+	                       				
+	                       			</div>
+	                       		</div>
+	                       	</div>
+		            	</div>
+                       	
+                    </div>
+                    <div class="ui-layout-east" style="overflow-x: hidden;">
+                    	<div class="side-list-container" style="max-height: 60%;">
+                    		<div style="margin-bottom: 20px">
+	                          	<h2><ins>To-do List</ins></h2>
+	                        </div>
+	                    	<div id="next-step-list">
+
+				            </div>
+                    	</div>
+                    	<div class="side-list-container" style="max-height:37%;">
+                    		<div style="margin-bottom: 20px">
+	                          	<h3><ins>No Update Recently</ins></h3>
+	                        </div>
+                    		<div class="list-group" id="no-update-group">
+							  
+							</div>
+                    	</div>
+                    </div>
+		        </section>
+			</div>
+
+        </section>
+	</body>
+	   
+
+
+</html>
